@@ -1,6 +1,6 @@
 [project]
 name = "crypto370"
-version = "1.0.0-dev"
+version = "1.0.0"
 type = "library"
 
 [build]
