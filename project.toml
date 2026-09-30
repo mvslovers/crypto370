@@ -1,0 +1,47 @@
+[project]
+name = "crypto370"
+version = "1.0.0-dev"
+type = "library"
+
+[build]
+# -Wall -Werror per the ecosystem's rules.
+cflags = ["-I", "include", "-Wall", "-Werror"]
+
+# ── Toolchain for release builds ─────────────────────────
+# release.yml builds against this libc370 tag, so a published archive is
+# reproducible; build.yml floats on main as the early warning.
+[toolchain]
+libc370 = "1.0.8"
+
+# ── Static library ───────────────────────────────────────
+# SHA-256, Blowfish and base64, moved out of libc370 for 2.0
+# (mvslovers/libc370#244).  One function per translation unit, so the
+# linker's autocall pulls only what a program calls: a base64 user does
+# not get Blowfish's 4 KB of S-boxes.  The C runtime comes from the cc370
+# sysroot libc (-lc); there are no dependencies.
+[lib]
+name = "crypto370"
+sources = ["src/*.c"]
+headers = ["include/sha256.h", "include/blowfish.h", "include/base64.h"]
+
+# ── Release ──────────────────────────────────────────────
+[release]
+version_files = ["VERSION"]
+
+# ── Tests ────────────────────────────────────────────────
+# Known-answer tests; each compiles the production sources it covers.
+[[test]]
+name = "TSTSHA"
+sources = ["test/mvs/tstsha.c", "src/sha256i.c", "src/sha256u.c",
+           "src/sha256f.c", "src/sha256t.c"]
+host = false          # sha256.h needs <clib64.h>, which only the sysroot has
+
+[[test]]
+name = "TSTBFISH"
+sources = ["test/mvs/tstbfish.c", "src/bfishkey.c", "src/bfishenc.c",
+           "src/bfishdec.c"]
+
+[[test]]
+name = "TSTB64"
+sources = ["test/mvs/tstb64.c", "src/b64enc.c", "src/b64dec.c",
+           "src/b64tbl.c"]
