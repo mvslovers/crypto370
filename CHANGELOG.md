@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-09-30
+
+First release. Builds against libc370 1.x and 2.x; released against 1.0.8.
+
 ### Added
 - SHA-256, Blowfish and base64, moved from libc370 1.0.8
   (mvslovers/libc370#244). Blowfish compiles to the same assembler as it
