@@ -34,7 +34,6 @@ version_files = ["VERSION"]
 name = "TSTSHA"
 sources = ["test/mvs/tstsha.c", "src/sha256i.c", "src/sha256u.c",
            "src/sha256f.c", "src/sha256t.c"]
-host = false          # sha256.h needs <clib64.h>, which only the sysroot has
 
 [[test]]
 name = "TSTBFISH"

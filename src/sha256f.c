@@ -9,8 +9,8 @@ void
 sha256_final(SHA256_CTX *ctx, unsigned char hash[])
 {
     unsigned int i;
-    __64 bits;
-    __64 shifted;
+    unsigned int hi;
+    unsigned int lo;
 
     i = ctx->datalen;
 
@@ -29,24 +29,20 @@ sha256_final(SHA256_CTX *ctx, unsigned char hash[])
     }
 
     /* append to the padding the total message length in bits */
-    __64_add_u32(&ctx->bitlen, ctx->datalen * 8, &bits);
+    hi = ctx->bitlen[0];
+    lo = ctx->bitlen[1] + ctx->datalen * 8;     /* cannot carry: bitlen[1] is
+                                                   a multiple of 512, and
+                                                   datalen * 8 is below it */
 
-    /* store big-endian 64-bit length in data[56..63] */
-    __64_rshift(&bits, &shifted, 56);
-    ctx->data[56] = (unsigned char)__64_to_u32(&shifted);
-    __64_rshift(&bits, &shifted, 48);
-    ctx->data[57] = (unsigned char)__64_to_u32(&shifted);
-    __64_rshift(&bits, &shifted, 40);
-    ctx->data[58] = (unsigned char)__64_to_u32(&shifted);
-    __64_rshift(&bits, &shifted, 32);
-    ctx->data[59] = (unsigned char)__64_to_u32(&shifted);
-    __64_rshift(&bits, &shifted, 24);
-    ctx->data[60] = (unsigned char)__64_to_u32(&shifted);
-    __64_rshift(&bits, &shifted, 16);
-    ctx->data[61] = (unsigned char)__64_to_u32(&shifted);
-    __64_rshift(&bits, &shifted, 8);
-    ctx->data[62] = (unsigned char)__64_to_u32(&shifted);
-    ctx->data[63] = (unsigned char)__64_to_u32(&bits);
+    /* store it big-endian in data[56..63] */
+    ctx->data[56] = (unsigned char)(hi >> 24);
+    ctx->data[57] = (unsigned char)(hi >> 16);
+    ctx->data[58] = (unsigned char)(hi >> 8);
+    ctx->data[59] = (unsigned char)hi;
+    ctx->data[60] = (unsigned char)(lo >> 24);
+    ctx->data[61] = (unsigned char)(lo >> 16);
+    ctx->data[62] = (unsigned char)(lo >> 8);
+    ctx->data[63] = (unsigned char)lo;
 
     sha256_transform(ctx, ctx->data);
 

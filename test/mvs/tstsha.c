@@ -61,5 +61,15 @@ int main(void)
         "cdc76e5c9914fb9281a1c7e284d73e67f1809a48a497200e046d39ccc7112cd0"),
         "one million 'a' in 1000-byte updates");
 
+    /* the bit counter's carry: 2^32 bits is 512 MB, too much to hash in a
+       test, so start one block short of it.  The digest is not checked -
+       no known answer starts from a forged counter - only the words */
+    sha256_init(&ctx);
+    ctx.bitlen[0] = 0;
+    ctx.bitlen[1] = 0xFFFFFE00;
+    sha256_update(&ctx, chunk, 64);
+    CHECK(ctx.bitlen[0] == 1 && ctx.bitlen[1] == 0,
+          "the bit count carries into the high word at 2^32");
+
     return mbt_test_summary("TSTSHA");
 }

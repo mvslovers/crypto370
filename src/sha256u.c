@@ -14,7 +14,8 @@ sha256_update(SHA256_CTX *ctx, const unsigned char data[], size_t len)
         ctx->datalen++;
         if (ctx->datalen == 64) {
             sha256_transform(ctx, ctx->data);
-            __64_add_u32(&ctx->bitlen, 512, &ctx->bitlen);
+            ctx->bitlen[1] += 512;
+            if (ctx->bitlen[1] < 512) ctx->bitlen[0]++;     /* carry */
             ctx->datalen = 0;
         }
     }

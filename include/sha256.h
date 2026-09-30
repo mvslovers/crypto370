@@ -8,12 +8,11 @@
 * Details:    Defines the API for the corresponding SHA1 implementation.
 *********************************************************************/
 #include <stddef.h>
-#include <clib64.h>
 
 #define SHA256_BLOCK_SIZE 32            /* SHA256 outputs a 32 byte digest */
 
 typedef struct {
-	__64				bitlen;
+	unsigned int		bitlen[2];		/* bits hashed so far: [0] high word, [1] low */
 	unsigned int  		datalen;
 	unsigned int		state[8];
 	unsigned char 		data[64];

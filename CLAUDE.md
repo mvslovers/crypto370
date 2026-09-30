@@ -26,6 +26,9 @@ floats on main on purpose.
 - **One function per TU.** ld370 autocalls whole members, so a TU that
   held two functions would link both into every caller of either: a base64
   user would carry Blowfish's 4 KB of S-boxes.
+- **Nothing from libc370 beyond ISO C.** No `clib*.h`, no `__64`: libc370
+  2.0 moves those headers, and a dependency on them would tie a crypto370
+  release to one libc370 major. It also keeps every test host-runnable.
 - **Symbols are this project's, not libc370's.** No `@@` names: that is
   libc370's namespace. External names stay at 8 characters or fewer.
 - **Test inputs are bytes, not string literals.** `"abc"` is EBCDIC on
