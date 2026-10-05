@@ -11,7 +11,7 @@ cflags = ["-I", "include", "-Wall", "-Werror"]
 # release.yml builds against this libc370 tag, so a published archive is
 # reproducible; build.yml floats on main as the early warning.
 [toolchain]
-libc370 = "2.0.0"
+libc370 = "2.4.0"
 
 # ── Static library ───────────────────────────────────────
 # SHA-256, Blowfish and base64, moved out of libc370 for 2.0
