@@ -14,7 +14,7 @@ as a dependency instead of getting it from the sysroot.
 "mvslovers/crypto370" = ">=1.0.0"
 ```
 
-`make deps` stages `crypto370.a` and the three headers. There are no
+`mbt deps` stages `crypto370.a` and the three headers. There are no
 dependencies of its own; the C runtime comes from the cc370 sysroot.
 
 | Header | Functions |
@@ -47,11 +47,15 @@ EBCDIC, while the binary side goes in and out unchanged. The contract is in
 
 ## Build and test
 
+Built with [mbt](https://github.com/mvslovers/mbt) 3; the project file is
+`mbt.toml`.
+
 ```
-make            the library (build/crypto370.a)
-make test       the test load modules
-make test-host  run the portable tests natively
-make test-mvs   run all tests on MVS (needs .env)
+mbt build                the library (build/crypto370.a)
+mbt build --tests        the library and the test load modules
+mbt test                 run the portable tests natively
+mbt test --mvs           run all tests on MVS (needs .env)
+mbt package              the release tarball in dist/
 ```
 
 The tests are known answers: FIPS 180-2 for SHA-256, Eric Young's ECB
