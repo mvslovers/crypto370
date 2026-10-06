@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+- The build moved to mbt 3: `mbt.toml` replaces `project.toml`, `VERSION`,
+  the `Makefile` and the mbt submodule. Build with `mbt build`, test with
+  `mbt test`, package with `mbt package`. The library and headers it
+  produces are byte-identical to the previous build's.
+
 ## [1.0.0] - 2026-09-30
 
 First release. Builds against libc370 1.x and 2.x; released against 1.0.8.
