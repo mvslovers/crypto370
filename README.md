@@ -14,8 +14,9 @@ as a dependency instead of getting it from the sysroot.
 "mvslovers/crypto370" = ">=1.0.0"
 ```
 
-`mbt deps` stages `crypto370.a` and the three headers. There are no
-dependencies of its own; the C runtime comes from the cc370 sysroot.
+`make deps` (mbt 2) or `mbt deps` (mbt 3) stages `crypto370.a` and the
+three headers. There are no dependencies of its own; the C runtime comes
+from the cc370 sysroot.
 
 | Header | Functions |
 |---|---|
