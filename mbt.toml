@@ -11,10 +11,11 @@ include = ["include"]
 cflags = ["-Wall", "-Werror"]
 
 # ── Toolchain for release builds ─────────────────────────
-# release.yml builds against this libc370 tag, so a published archive is
-# reproducible; build.yml floats on main as the early warning.
+# release.yml builds against these cc370 and libc370 tags, so a published
+# archive is reproducible; build.yml floats on main as the early warning.
 [toolchain]
-libc370 = "2.4.0"
+cc370 = "1.4.0"
+libc370 = "2.4.1"
 mbt = "3.0"
 
 # ── Static library ───────────────────────────────────────

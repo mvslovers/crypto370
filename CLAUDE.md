@@ -14,14 +14,15 @@ MVS, like libc370 and lstring370.
 
 mbt 3, `kind = "library"` in `mbt.toml`. `mbt build` builds
 `build/crypto370.a`; `mbt package` puts it with the headers into
-`dist/crypto370-<version>-lib.tar.gz`, which is what a consumer's
-`mbt deps` downloads from the GitHub release. No `[dependencies]`: the
-C runtime is the cc370 sysroot (`-lc`). `mbt test` runs the tests on the
-host, `mbt test --mvs` on MVS.
+`dist/crypto370-<version>-lib.tar.gz`, which is what a consumer's `make
+deps` (mbt 2) or `mbt deps` (mbt 3) downloads from the GitHub release.
+No `[dependencies]`: the C runtime is the cc370 sysroot (`-lc`). `mbt
+test` runs the tests on the host, `mbt test --mvs` on MVS (the system
+comes from `~/.mbt/targets.toml`, see `mbt target`).
 
-`[toolchain] libc370` pins what a release is built against; `build.yml`
-floats on main on purpose. `[toolchain] mbt` pins the mbt that builds
-the project.
+`[toolchain] cc370` and `libc370` pin what a release is built against;
+`build.yml` floats on main on purpose. `[toolchain] mbt` pins the mbt
+that builds the project.
 
 Releases: `mbt release <version>` (bump, tag, push, bump to the next
 `-dev`), `mbt prerelease` to (re)tag the current `-dev` version.

@@ -11,6 +11,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
   the `Makefile` and the mbt submodule. Build with `mbt build`, test with
   `mbt test`, package with `mbt package`. The library and headers it
   produces are byte-identical to the previous build's.
+- Releases are built against cc370 1.4.0 and libc370 2.4.1 (was libc370
+  2.4.0, cc370 unpinned).
+- The MVS system for `mbt test --mvs` comes from `~/.mbt/targets.toml`;
+  `.env.example` is gone.
 
 ## [1.0.0] - 2026-09-30
 
