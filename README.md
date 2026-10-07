@@ -55,9 +55,13 @@ Built with [mbt](https://github.com/mvslovers/mbt) 3; the project file is
 mbt build                the library (build/crypto370.a)
 mbt build --tests        the library and the test load modules
 mbt test                 run the portable tests natively
-mbt test --mvs           run all tests on MVS (needs .env)
+mbt test --mvs           run all tests on MVS (needs an MVS target)
 mbt package              the release tarball in dist/
 ```
+
+`mbt test --mvs` talks to the MVS system named in `~/.mbt/targets.toml`
+(`mbt target list`); `mbt target import .env --name NAME` turns an mbt 2
+`.env` into one.
 
 The tests are known answers: FIPS 180-2 for SHA-256, Eric Young's ECB
 vectors for Blowfish, RFC 4648 section 10 for base64.
